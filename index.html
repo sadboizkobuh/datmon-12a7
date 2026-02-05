@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Đặt món 12A7</title>
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+(function(){
+emailjs.init("d9zrr1HVpWyHnALoY");
+})();
+</script>
+
+<style>
+body{
+font-family: Arial;
+background:#ffe9e9;
+padding:20px;
+}
+
+.box{
+background:white;
+max-width:520px;
+margin:auto;
+padding:20px;
+border-radius:12px;
+box-shadow:0 0 12px rgba(0,0,0,0.15);
+}
+
+h2{
+text-align:center;
+color:#c40000;
+}
+
+.item{
+display:flex;
+align-items:center;
+gap:12px;
+margin:12px 0;
+}
+
+.item img{
+width:90px;
+height:90px;
+object-fit:cover;
+border-radius:10px;
+}
+
+input[type=number]{
+width:70px;
+}
+
+.total{
+font-size:18px;
+font-weight:bold;
+margin-top:8px;
+}
+
+button{
+background:#d60000;
+color:white;
+border:none;
+padding:12px;
+width:100%;
+border-radius:8px;
+font-size:16px;
+cursor:pointer;
+margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+<h2>Phiếu đặt món 12A7</h2>
+
+Tên học sinh:<br>
+<input id="name" style="width:100%"><br><br>
+
+Lớp:<br>
+<input id="class" style="width:100%"><br>
+
+<div class="item">
+<img src="tratac.jpg">
+<label>
+<input type="checkbox" id="ttCheck" onchange="toggle('ttQty',this)">
+Trà tắc trân châu
+</label>
+SL:
+<input type="number" id="ttQty" value="0" disabled onchange="calc()">
+</div>
+
+<div class="item">
+<img src="hacap.jpg">
+<label>
+<input type="checkbox" id="hcCheck" onchange="toggle('hcQty',this)">
+Há cảo
+</label>
+SL:
+<input type="number" id="hcQty" value="0" disabled onchange="calc()">
+</div>
+
+<div class="total">Tổng đơn: <span id="total">0</span></div>
+<div class="total">Tổng tiền: <span id="money">0</span> đ</div>
+
+<button onclick="sendOrder()">Gửi đơn</button>
+</div>
+
+<script>
+
+function toggle(id,cb){
+document.getElementById(id).disabled=!cb.checked;
+if(!cb.checked) document.getElementById(id).value=0;
+calc();
+}
+
+function calc(){
+let tt=parseInt(ttQty.value)||0;
+let hc=parseInt(hcQty.value)||0;
+let t=tt+hc;
+total.innerText=t;
+money.innerText=t*15000;
+}
+
+function sendOrder(){
+
+let tt=parseInt(ttQty.value)||0;
+let hc=parseInt(hcQty.value)||0;
+let t=tt+hc;
+let m=t*15000;
+
+if(!name.value || !document.getElementById("class").value){
+alert("Nhập tên và lớp");
+return;
+}
+
+if(t===0){
+alert("Chưa chọn món");
+return;
+}
+
+let params={
+name:name.value,
+class:document.getElementById("class").value,
+tratac:tt,
+hacap:hc,
+total:t,
+money:m
+};
+
+emailjs.send(
+"service_06i11lb",
+"template_45dmsdv",
+params
+).then(()=>{
+alert("Đã gửi đơn thành công!");
+location.reload();
+},
+()=>{
+alert("Gửi lỗi — kiểm tra Template hoặc Public Key");
+});
+
+}
+
+</script>
+
+</body>
+</html>
