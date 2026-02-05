@@ -83,7 +83,7 @@ Lớp:<br>
 <input id="class" style="width:100%"><br>
 
 <div class="item">
-<img src="tratac.jpg" style="width:100%; height:auto;">
+<img src="tratac.jpg" style="width:100%; max-height:800px; object-fit:contain;">
 <label>
 <input type="checkbox" id="ttCheck" onchange="toggle('ttQty',this)">
 Trà tắc trân châu
@@ -93,7 +93,7 @@ SL:
 </div>
 
 <div class="item">
-<img src="hacap.jpg" style="width:100%; height:auto;">
+<img src="hacap.jpg" style="width:100%; max-height:800px; object-fit:contain;">
 <label>
 <input type="checkbox" id="hcCheck" onchange="toggle('hcQty',this)">
 Há cảo
@@ -101,7 +101,8 @@ Há cảo
 SL:
 <input type="number" id="hcQty" value="0" disabled onchange="calc()">
 </div>
-
+<p>Há cảo 1 phần gồm 6 viên</p>
+  
 <div class="total">Tổng đơn: <span id="total">0</span></div>
 <div class="total">Tổng tiền: <span id="money">0</span> đ</div>
 
